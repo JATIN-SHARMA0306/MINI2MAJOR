@@ -44,7 +44,7 @@
    settextstyle(8,0,1);
    setcolor(YELLOW);
    outtextxy(170,380,"Algorithm created by Bresenham");
-   outtextxy(170,400,"       Designed by king");
+   outtextxy(170,400,"       Designed by Jatin Sharma");
    getch();
    closegraph();
    return 0;
