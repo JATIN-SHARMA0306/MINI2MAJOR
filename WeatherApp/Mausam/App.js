@@ -3,7 +3,6 @@ const users = [
      name: '',
      avatar: 'https://i.pinimg.com/originals/b7/a4/e1/b7a4e1c4fc4a9a91a9154943567ece6d.gif'
   },
-   // more users here
  ]
 
 import React from 'react';
@@ -12,8 +11,6 @@ import {Card,Button} from 'react-native-elements';
 
 export default class App extends React.Component {
 
-  
- 
   constructor(){
     super();
     this.state={
@@ -28,13 +25,13 @@ export default class App extends React.Component {
     }
   }
 
-  getrandomcolor=()=>{
+  /*getrandomcolor=()=>{
   return(
      
     "rgb("+(Math.floor(Math.random()*256))+','+
     (Math.floor(Math.random()*256))+','+
     (Math.floor(Math.random()*256))+')' )
-}
+}*/
 
 reset=()=>{
   this.setState({data1:""})
@@ -45,14 +42,8 @@ reset=()=>{
   this.setState({data6:""})
 }
 
- buttonpressed=()=>{
-   this.setState({
-     randomcolor:this.getrandomcolor()
-   })
- }
-
  fetchweather=()=>{
-   fetch(`https://api.openweathermap.org/data/2.5/weather?q=Ashok Nagar,Delhi&appid=d263837b7d57aae594ceb0aa3ac35fdd`)
+   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.inputstate}&appid=d263837b7d57aae594ceb0aa3ac35fdd`)
    .then(response=>response.json())
    .then(responsejson=>{
      console.log(responsejson.weather[0].main)
@@ -63,22 +54,22 @@ reset=()=>{
      this.setState({data4:responsejson.main.temp_min+"K"})
      this.setState({data5:responsejson.main.temp_max+"K"})
      this.setState({data6:responsejson.main.humidity})
-     console.log(this.state.data1)
-     console.log(this.state.data2)
-     console.log(this.state.data3)
-     console.log(this.state.data4)
-     console.log(this.state.data5)
+  }).catch((err)=>{
+    console.log("some error happened");
+    alert("Sorry,This is not in our list");
   })
  }
 render(){
   return (
     <SafeAreaView style={[styles.container]}>
+    <Text style={{color:"orange",fontSize:25,textDecorationLine:"underline"}}>WEATHER APPLICATION</Text>
     <View style={styles.inputcontainer}>
-    <KeyboardAvoidingView>
+    <KeyboardAvoidingView
+    >
     <TextInput
       style={styles.input}
       selectionColor="tomato"
-      keyboardType="default"
+      keyboardType="ascii-capable"
       placeholder="Enter city name..."
       placeholderTextColor="#fff"
       value={this.state.inputstate}
@@ -116,10 +107,10 @@ render(){
     </View>  
     <View style={styles.below}>
     <TouchableOpacity style={styles.button} onPress={this.fetchweather}>
-    <Text style={styles.text}>|CLICK|</Text>
+    <Text style={styles.text}>GET WEATHER</Text>
   </TouchableOpacity>
   <TouchableOpacity style={styles.button} onPress={this.reset}>
-    <Text style={styles.text}>|RESET|</Text>
+    <Text style={styles.text}>RESET</Text>
   </TouchableOpacity>
   </View>
 </SafeAreaView>
